@@ -1,20 +1,30 @@
-# Biblioteca (Python)
+# Sistema de Gestión de Biblioteca
 
-## Requisitos
+Implementación de un sistema de gestión bibliotecaria utilizando diferentes estructuras de datos en Python.
+
+## Guía Rápida
+
+### Requisitos
 
 - Python 3.9+
 
-## Ejecutar CLI
+### Instalación
 
 ```bash
-python3 app.py
+# Clonar el repositorio
+git clone https://github.com/usuario/estructuras-de-datos.git
+cd estructuras-de-datos
 ```
 
-## Ejecutar pruebas
+### Ejecución
 
 ```bash
-python3 -m unittest tests_unittest.py -v
-python3 -m unittest tests_arboles.py -v
+# Ejecutar la aplicación principal
+python3 app.py
+
+# Ejecutar pruebas unitarias
+python3 -m unittest tests/tests_unittest.py -v  # Pruebas de estructuras lineales
+python3 -m unittest tests/tests_arboles.py -v   # Pruebas de árboles binarios
 ```
 
 ## Estructura del Proyecto
@@ -22,66 +32,46 @@ python3 -m unittest tests_arboles.py -v
 ```
 estructuras-de-datos/
 ├── app.py                  # Aplicación principal con menú CLI
-├── Informe.md              # Documentación del proyecto
-├── README.md               # Este archivo
+├── Informe.md              # Análisis técnico y requerimientos
+├── DOCUMENTACION.md        # Decisiones de diseño y desafíos
+├── README.md               # Este archivo (guía de uso)
 ├── src/                    # Código fuente
-│   ├── __init__.py          # Inicialización del paquete
-│   ├── estructuras/         # Estructuras de datos
-│   │   ├── __init__.py      # Inicialización del paquete
-│   │   ├── ds_linear.py     # Estructuras lineales (ArrayList, LinkedList, Stack, Queue)
-│   │   └── arboles.py       # Árbol Binario de Búsqueda genérico
-│   ├── modelos/            # Modelos de datos
-│   │   ├── __init__.py      # Inicialización del paquete
-│   │   └── models.py        # Clases Book, User, Loan, Editorial, Genero
-│   ├── servicios/          # Servicios de negocio
-│   │   ├── __init__.py      # Inicialización del paquete
-│   │   ├── library_service.py # Servicio de biblioteca (estructuras lineales)
-│   │   └── search_service.py # Servicio de búsqueda (árboles)
-│   └── persistencia/       # Manejo de persistencia
-│       ├── __init__.py      # Inicialización del paquete
-│       └── persistencia.py   # Funciones para guardar/cargar datos JSON
-├── tests/                 # Pruebas unitarias
-│   ├── __init__.py          # Inicialización del paquete
-│   ├── tests_unittest.py    # Pruebas para estructuras lineales
-│   └── tests_arboles.py     # Pruebas para árboles
-└── data/                  # Archivos de datos
-    ├── editoriales.json     # Datos de editoriales
-    └── generos.json         # Datos de géneros
+│   ├── estructuras/        # Implementaciones de estructuras de datos
+│   ├── modelos/            # Entidades del dominio
+│   ├── servicios/          # Lógica de negocio
+│   └── persistencia/       # Manejo de datos
+├── tests/                  # Pruebas unitarias
+└── data/                   # Archivos de datos JSON
 ```
 
-### Etapa 1: Estructuras Lineales
+## Funcionalidades Principales
 
-Implementación de estructuras de datos lineales para la gestión de biblioteca:
+### Gestión de Biblioteca (Estructuras Lineales)
 
-- Arreglos dinámicos (ArrayList) para almacenar libros
-- Listas enlazadas (SinglyLinkedList) para usuarios
-- Pilas (Stack) para historial de operaciones
-- Colas (Queue) para reservas de libros
+- **Libros**: Registrar, buscar, actualizar, eliminar y listar
+- **Usuarios**: Registrar, buscar, eliminar y listar
+- **Préstamos**: Prestar, devolver y listar préstamos activos
+- **Reservas**: Gestión automática de reservas cuando no hay disponibilidad
 
-### Etapa 2: Árboles Binarios
+### Búsquedas Avanzadas (Árboles Binarios)
 
-Implementación de estructuras no lineales para búsquedas eficientes:
+- **Editoriales**: Búsqueda, listado, inserción y actualización
+- **Géneros**: Búsqueda, listado, inserción y actualización
 
-- Árbol Binario de Búsqueda genérico
-- Servicio de búsqueda para editoriales y géneros
-- Persistencia de datos en archivos JSON
+## Navegación del Menú
 
-## Menú de Búsquedas y Gestión
+1. **Gestión de Libros** - Administración del catálogo
+2. **Gestión de Usuarios** - Registro y búsqueda de usuarios
+3. **Préstamos/Reservas** - Control de préstamos y devoluciones
+4. **Editoriales y Géneros** - Búsquedas avanzadas con árboles binarios
+9. **Ver última acción** - Historial de operaciones (pila)
+0. **Salir** - Finalizar programa
 
-El sistema ahora incluye una nueva opción "Búsquedas y Gestión (Árboles)" que permite:
+## Documentación Adicional
 
-1. Buscar editorial por nombre
-2. Buscar género por nombre
-3. Listar todas las editoriales en orden alfabético
-4. Listar todos los géneros en orden alfabético
-5. Insertar nueva editorial
-6. Insertar nuevo género
-7. Actualizar editorial existente
-8. Actualizar género existente
+- **Informe.md**: Análisis técnico, requerimientos y estructuras de datos utilizadas
+- **DOCUMENTACION.md**: Decisiones de diseño, desafíos enfrentados y soluciones implementadas
 
-## Flujo de Búsqueda
+## Autor
 
-1. Seleccionar opción 4 en el menú principal
-2. Elegir tipo de búsqueda (editorial o género)
-3. Ingresar nombre a buscar o seleccionar listar todos
-4. Ver resultados ordenados alfabéticamente
+Andres Alfonso Rodriguez Santos - Ingeniería de Software - Corporación Universitaria Iberoamericana

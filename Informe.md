@@ -7,7 +7,7 @@
 **Profesor:** William Ruiz
 **Universidad:** Corporación Universitaria Iberoamericana
 **Carrera:** Ingeniería de Software
-**Fecha:** October 04, 2025
+**Fecha:** Noviembre 08, 2025
 
 ## Introducción
 
@@ -15,21 +15,58 @@ Este documento presenta el análisis, diseño e implementación de un prototipo 
 
 ## Requerimientos del sistema
 
-### Funcionales
+### Requerimientos Funcionales
 
-- Registrar, listar, buscar, actualizar y eliminar **libros**.
-- Registrar, listar, buscar y eliminar **usuarios**.
-- **Prestar** y **devolver** libros con control de disponibilidad.
-- Gestionar **reservas** mediante **colas** cuando no haya ejemplares disponibles.
-- Mostrar un **historial** básico de operaciones mediante **pila**.
-- Listar **préstamos activos**.
+#### 1. Gestión de Libros
 
-### No funcionales
+| Requerimiento | Proceso | Salida |
+|--------------|---------|--------|
+| **RF1.1: Registrar libro** | 1. Capturar datos del libro (ISBN, título, autor, año, ejemplares)<br>2. Validar que el ISBN no exista<br>3. Crear instancia de libro<br>4. Almacenar en estructura ArrayList | Confirmación de registro exitoso<br>Libro añadido al catálogo |
+| **RF1.2: Listar libros** | 1. Recorrer la colección de libros<br>2. Formatear datos para presentación | Lista de libros con detalles (ISBN, título, autor, disponibilidad) |
+| **RF1.3: Buscar libro** | 1. Capturar ISBN a buscar<br>2. Realizar búsqueda binaria en ArrayList<br>3. Recuperar datos del libro | Detalles del libro encontrado o mensaje de "no encontrado" |
+| **RF1.4: Actualizar libro** | 1. Buscar libro por ISBN<br>2. Capturar nuevos datos<br>3. Actualizar atributos<br>4. Reordenar si cambia ISBN | Confirmación de actualización exitosa |
+| **RF1.5: Eliminar libro** | 1. Buscar libro por ISBN<br>2. Eliminar de la colección<br>3. Eliminar reservas asociadas | Confirmación de eliminación exitosa |
 
-- Prototipo ejecutable por **línea de comandos (CLI)**.
-- Código legible y modular, con **buenas prácticas** (nombres claros, comentarios básicos, separación por capas).
-- **Pruebas unitarias** sobre 2–3 casos críticos.
-- Persistencia **no requerida** para la etapa (el enfoque está en las estructuras en memoria).
+#### 2. Gestión de Usuarios
+
+| Requerimiento | Proceso | Salida |
+|--------------|---------|--------|
+| **RF2.1: Registrar usuario** | 1. Capturar datos del usuario (ID, nombre, email)<br>2. Validar que el ID no exista<br>3. Crear instancia de usuario<br>4. Insertar al inicio de la lista enlazada | Confirmación de registro exitoso |
+| **RF2.2: Listar usuarios** | 1. Recorrer la lista enlazada de usuarios<br>2. Formatear datos para presentación | Lista de usuarios con detalles (ID, nombre, email) |
+| **RF2.3: Buscar usuario** | 1. Capturar ID a buscar<br>2. Recorrer la lista enlazada<br>3. Comparar IDs hasta encontrar coincidencia | Detalles del usuario encontrado o mensaje de "no encontrado" |
+| **RF2.4: Eliminar usuario** | 1. Buscar usuario por ID<br>2. Eliminar de la lista enlazada | Confirmación de eliminación exitosa |
+
+#### 3. Gestión de Préstamos y Reservas
+
+| Requerimiento | Proceso | Salida |
+|--------------|---------|--------|
+| **RF3.1: Prestar libro** | 1. Verificar existencia de libro y usuario<br>2. Verificar disponibilidad de ejemplares<br>3. Decrementar contador de disponibles<br>4. Crear registro de préstamo<br>5. Calcular fecha de devolución | ID de préstamo generado o mensaje de "no disponible" |
+| **RF3.2: Devolver libro** | 1. Buscar préstamo por ID<br>2. Marcar como devuelto<br>3. Incrementar contador de disponibles<br>4. Verificar cola de reservas<br>5. Asignar automáticamente al siguiente en cola si hay | Confirmación de devolución exitosa |
+| **RF3.3: Reservar libro** | 1. Verificar existencia de libro y usuario<br>2. Encolar ID de usuario en la cola de reservas del libro<br>3. Marcar libro como "tiene reservas" | Confirmación de reserva exitosa |
+| **RF3.4: Listar préstamos activos** | 1. Filtrar préstamos por estado "no devuelto"<br>2. Formatear datos para presentación | Lista de préstamos activos con detalles (ID, usuario, libro, fecha vencimiento) |
+
+#### 4. Auditoría y Búsquedas
+
+| Requerimiento | Proceso | Salida |
+|--------------|---------|--------|
+| **RF4.1: Registrar historial** | 1. Crear registro de operación<br>2. Apilar en la estructura de historial | Operación registrada en historial |
+| **RF4.2: Consultar última operación** | 1. Verificar si la pila no está vacía<br>2. Obtener elemento superior sin desapilar | Descripción de la última operación realizada |
+| **RF4.3: Buscar editorial** | 1. Capturar nombre a buscar<br>2. Realizar búsqueda en árbol binario<br>3. Recuperar datos de la editorial | Detalles de la editorial encontrada o mensaje de "no encontrada" |
+| **RF4.4: Buscar género** | 1. Capturar nombre a buscar<br>2. Realizar búsqueda en árbol binario<br>3. Recuperar datos del género | Detalles del género encontrado o mensaje de "no encontrado" |
+| **RF4.5: Listar editoriales** | 1. Realizar recorrido inorden del árbol<br>2. Formatear datos para presentación | Lista ordenada alfabéticamente de editoriales |
+| **RF4.6: Listar géneros** | 1. Realizar recorrido inorden del árbol<br>2. Formatear datos para presentación | Lista ordenada alfabéticamente de géneros |
+
+### Requerimientos No Funcionales
+
+| Requerimiento | Descripción | Criterio de Aceptación |
+|--------------|-------------|------------------------|
+| **RNF1: Interfaz de usuario** | Prototipo ejecutable por **línea de comandos (CLI)** con menús intuitivos y navegables | Sistema operable completamente desde terminal con menús claros y respuestas informativas |
+| **RNF2: Calidad de código** | Código legible y modular, con **buenas prácticas** (nombres claros, comentarios básicos, separación por capas) | Estructura de proyecto organizada con separación clara de responsabilidades |
+| **RNF3: Pruebas** | **Pruebas unitarias** sobre casos críticos del sistema | Al menos 3 casos de prueba documentados y ejecutables |
+| **RNF4: Rendimiento** | Operaciones de búsqueda optimizadas mediante estructuras adecuadas | Búsquedas en tiempo O(log n) para operaciones frecuentes |
+| **RNF5: Escalabilidad** | Diseño que permita incorporar nuevas funcionalidades sin modificar lo existente | Arquitectura modular con interfaces bien definidas |
+| **RNF6: Documentación** | Documentación completa del diseño, estructuras utilizadas y justificación | Archivos README.md, Informe.md y DOCUMENTACION.md detallados |
+| **RNF7: Manejo de errores** | Sistema robusto que maneje adecuadamente entradas inválidas | Validación de entradas y mensajes de error informativos |
 
 ## Selección de estructuras de datos (enfoque)
 
@@ -73,41 +110,26 @@ Este documento presenta el análisis, diseño e implementación de un prototipo 
 
 ## Implementación (resumen)
 
-### Estructura del Proyecto
+La implementación del sistema se ha realizado siguiendo un enfoque modular y orientado a objetos, con una clara separación de responsabilidades. Los detalles de la estructura del proyecto y la organización de archivos se encuentran en el archivo README.md.
 
-El proyecto se ha organizado en una estructura modular de carpetas para mejorar la mantenibilidad y escalabilidad:
+### Enfoque de Implementación
 
-```
-estructuras-de-datos/
-├── app.py                  # Aplicación principal con menú CLI
-├── src/                    # Código fuente
-│   ├── estructuras/         # Estructuras de datos
-│   │   ├── ds_linear.py     # Estructuras lineales
-│   │   └── arboles.py       # Árbol Binario de Búsqueda
-│   ├── modelos/            # Modelos de datos
-│   │   └── models.py        # Clases de entidades
-│   ├── servicios/          # Servicios de negocio
-│   │   ├── library_service.py # Servicio de biblioteca
-│   │   └── search_service.py # Servicio de búsqueda
-│   └── persistencia/       # Manejo de persistencia
-│       └── persistencia.py   # Funciones JSON
-├── tests/                 # Pruebas unitarias
-│   ├── tests_unittest.py    # Pruebas lineales
-│   └── tests_arboles.py     # Pruebas árboles
-└── data/                  # Archivos de datos
-    ├── editoriales.json     # Datos de editoriales
-    └── generos.json         # Datos de géneros
-```
+1. **Separación de Capas**: Se ha implementado una arquitectura en capas que separa:
+   - Estructuras de datos (ArrayList, LinkedList, Stack, Queue, Árbol Binario)
+   - Modelos de dominio (Book, User, Loan, Editorial, Genero)
+   - Servicios de negocio (LibraryService, SearchService)
+   - Persistencia (funciones para manejo de JSON)
+   - Interfaz de usuario (menú CLI)
 
-### Componentes Principales
+2. **Principios de Diseño**:
+   - Responsabilidad Única: Cada clase tiene una sola responsabilidad
+   - Abstracción: Las estructuras de datos están implementadas de forma genérica
+   - Encapsulamiento: Los detalles de implementación están ocultos tras interfaces claras
 
-- `src/estructuras/ds_linear.py`: implementa **ArrayList**, **Lista Enlazada Simple**, **Stack**, **Queue** (lineales).
-- `src/modelos/models.py`: dataclasses para **Book**, **User**, **Loan**, **Editorial**, **Genero**.
-- `src/servicios/library_service.py`: reglas de negocio; ordena libros por ISBN, usa cola de reservas y pila de historial.
-- `src/servicios/search_service.py`: servicio de búsqueda con árboles binarios para editoriales y géneros.
-- `app.py`: **menú CLI** con opciones de gestión, préstamos, reservas y búsquedas.
-- `tests/tests_unittest.py`: **unittest** de registro/búsqueda de libro, flujo prestar/devolver y reservas automáticas.
-- `tests/tests_arboles.py`: **unittest** para verificar el funcionamiento de los árboles binarios de búsqueda.
+3. **Estrategia de Pruebas**:
+   - Pruebas unitarias para las estructuras de datos lineales
+   - Pruebas unitarias para las estructuras de árboles binarios
+   - Casos de prueba que verifican flujos completos del sistema
 
 ## Menú del aplicativo (línea de comando)
 
