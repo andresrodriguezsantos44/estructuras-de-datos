@@ -1,8 +1,8 @@
-# Sistema de Gestión de Biblioteca (Prototipo con Estructuras de Datos Lineales)
+# Sistema de Gestión de Biblioteca (Prototipo con Estructuras de Datos Lineales, No Lineales y Árboles Binarios)
 
 **Portada**  
 **Curso:** Estructura de Datos
-**Proyecto:** Sistema de Gestión de Biblioteca (Etapa 1)
+**Proyecto:** Modelar las interacciones entre los usuarios y los libros [Refinamiento 2]
 **Autor:** Andres Alfonso Rodriguez Santos
 **Profesor:** William Ruiz
 **Universidad:** Corporación Universitaria Iberoamericana
