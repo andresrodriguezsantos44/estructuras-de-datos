@@ -1,7 +1,9 @@
 
 from typing import Optional
-from models import Book, User
+from models import Book, User, Editorial, Genero
 from library_service import LibraryService
+from search_service import SearchService
+from persistencia import cargar_desde_json
 
 def input_int(prompt: str) -> int:
     while True:
@@ -146,6 +148,162 @@ def menu_prestamos(svc: LibraryService):
         else:
             print("Opción inválida.")
 
+def ejecutar_busquedas():
+    """Función para manejar las búsquedas usando árboles."""
+    # Crear instancia del servicio de búsqueda
+    search_svc = SearchService()
+    
+    # Cargar datos desde archivos JSON
+    editoriales = cargar_desde_json("editoriales.json", Editorial)
+    generos = cargar_desde_json("generos.json", Genero)
+    
+    # Cargar datos en los árboles
+    search_svc.cargar_editoriales(editoriales)
+    search_svc.cargar_generos(generos)
+    
+    while True:
+        print("\n--- Búsquedas y Gestión (Árboles) ---")
+        print("1. Buscar editorial")
+        print("2. Buscar género")
+        print("3. Listar editoriales")
+        print("4. Listar géneros")
+        print("5. Insertar editorial")
+        print("6. Insertar género")
+        print("7. Actualizar editorial")
+        print("8. Actualizar género")
+        print("0. Volver al menú principal")
+        op = input("Opción: ").strip()
+        
+        if op == "1":
+            nombre = input("Nombre de la editorial a buscar: ").strip()
+            editorial = search_svc.buscar_editorial(nombre)
+            if editorial:
+                print(f"Editorial encontrada: {editorial.id} | {editorial.nombre} | {editorial.pais} | Fundada en {editorial.anio_fundacion}")
+            else:
+                print("Editorial no encontrada.")
+                
+        elif op == "2":
+            nombre = input("Nombre del género a buscar: ").strip()
+            genero = search_svc.buscar_genero(nombre)
+            if genero:
+                print(f"Género encontrado: {genero.id} | {genero.nombre}")
+                print(f"Descripción: {genero.descripcion}")
+            else:
+                print("Género no encontrado.")
+                
+        elif op == "3":
+            editoriales = search_svc.listar_editoriales()
+            if not editoriales:
+                print("No hay editoriales registradas.")
+            else:
+                print("\nEditoriales en orden alfabético:")
+                for e in editoriales:
+                    print(f"{e.id} | {e.nombre} | {e.pais} | Fundada en {e.anio_fundacion}")
+                    
+        elif op == "4":
+            generos = search_svc.listar_generos()
+            if not generos:
+                print("No hay géneros registrados.")
+            else:
+                print("\nGéneros en orden alfabético:")
+                for g in generos:
+                    print(f"{g.id} | {g.nombre} | {g.descripcion}")
+        
+        elif op == "5":
+            print("\n--- Insertar Nueva Editorial ---")
+            id_editorial = input("ID de la editorial: ").strip()
+            nombre = input("Nombre: ").strip()
+            pais = input("País: ").strip()
+            try:
+                anio = int(input("Año de fundación: ").strip())
+            except ValueError:
+                print("Error: El año debe ser un número entero.")
+                continue
+                
+            editorial = Editorial(id=id_editorial, nombre=nombre, pais=pais, anio_fundacion=anio)
+            if search_svc.insertar_editorial(editorial):
+                print("Editorial insertada correctamente.")
+            else:
+                print("Error: Ya existe una editorial con ese nombre.")
+        
+        elif op == "6":
+            print("\n--- Insertar Nuevo Género ---")
+            id_genero = input("ID del género: ").strip()
+            nombre = input("Nombre: ").strip()
+            descripcion = input("Descripción: ").strip()
+                
+            genero = Genero(id=id_genero, nombre=nombre, descripcion=descripcion)
+            if search_svc.insertar_genero(genero):
+                print("Género insertado correctamente.")
+            else:
+                print("Error: Ya existe un género con ese nombre.")
+        
+        elif op == "7":
+            print("\n--- Actualizar Editorial ---")
+            nombre_original = input("Nombre de la editorial a actualizar: ").strip()
+            editorial = search_svc.buscar_editorial(nombre_original)
+            
+            if not editorial:
+                print("Editorial no encontrada.")
+                continue
+                
+            print(f"Editorial actual: {editorial.id} | {editorial.nombre} | {editorial.pais} | Fundada en {editorial.anio_fundacion}")
+            print("Deje en blanco los campos que no desea modificar.")
+            
+            nuevo_id = input(f"Nuevo ID [{editorial.id}]: ").strip()
+            nuevo_nombre = input(f"Nuevo nombre [{editorial.nombre}]: ").strip()
+            nuevo_pais = input(f"Nuevo país [{editorial.pais}]: ").strip()
+            nuevo_anio_str = input(f"Nuevo año de fundación [{editorial.anio_fundacion}]: ").strip()
+            
+            datos_actualizados = {}
+            if nuevo_id: datos_actualizados["id"] = nuevo_id
+            if nuevo_nombre: datos_actualizados["nombre"] = nuevo_nombre
+            if nuevo_pais: datos_actualizados["pais"] = nuevo_pais
+            if nuevo_anio_str:
+                try:
+                    datos_actualizados["anio_fundacion"] = int(nuevo_anio_str)
+                except ValueError:
+                    print("Error: El año debe ser un número entero.")
+                    continue
+            
+            if search_svc.actualizar_editorial(nombre_original, datos_actualizados):
+                print("Editorial actualizada correctamente.")
+            else:
+                print("Error al actualizar la editorial.")
+        
+        elif op == "8":
+            print("\n--- Actualizar Género ---")
+            nombre_original = input("Nombre del género a actualizar: ").strip()
+            genero = search_svc.buscar_genero(nombre_original)
+            
+            if not genero:
+                print("Género no encontrado.")
+                continue
+                
+            print(f"Género actual: {genero.id} | {genero.nombre}")
+            print(f"Descripción: {genero.descripcion}")
+            print("Deje en blanco los campos que no desea modificar.")
+            
+            nuevo_id = input(f"Nuevo ID [{genero.id}]: ").strip()
+            nuevo_nombre = input(f"Nuevo nombre [{genero.nombre}]: ").strip()
+            nueva_descripcion = input(f"Nueva descripción [{genero.descripcion}]: ").strip()
+            
+            datos_actualizados = {}
+            if nuevo_id: datos_actualizados["id"] = nuevo_id
+            if nuevo_nombre: datos_actualizados["nombre"] = nuevo_nombre
+            if nueva_descripcion: datos_actualizados["descripcion"] = nueva_descripcion
+            
+            if search_svc.actualizar_genero(nombre_original, datos_actualizados):
+                print("Género actualizado correctamente.")
+            else:
+                print("Error al actualizar el género.")
+                    
+        elif op == "0":
+            return
+            
+        else:
+            print("Opción inválida.")
+
 def main():
     svc = LibraryService()
     while True:
@@ -153,6 +311,7 @@ def main():
         print("1. Gestión de Libros")
         print("2. Gestión de Usuarios")
         print("3. Préstamos/Reservas")
+        print("4. Editoriales y Géneros (Árboles)")
         print("9. Ver última acción (pila historial)")
         print("0. Salir")
         op = input("Opción: ").strip()
@@ -162,6 +321,8 @@ def main():
             menu_usuarios(svc)
         elif op == "3":
             menu_prestamos(svc)
+        elif op == "4":
+            ejecutar_busquedas()
         elif op == "9":
             top = svc.ver_top_historial()
             print(f"Última acción: {top}" if top else "Historial vacío.")

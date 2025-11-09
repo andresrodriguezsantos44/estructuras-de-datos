@@ -1,0 +1,20 @@
+[
+    {
+        "id": "ED001",
+        "nombre": "Editorial 1",
+        "pais": "España",
+        "anio_fundacion": 1964
+    },
+    {
+        "id": "ED002",
+        "nombre": "Editorial 2",
+        "pais": "Estados Unidos",
+        "anio_fundacion": 2013
+    },
+    {
+        "id": "ED003",
+        "nombre": "Editorial 3",
+        "pais": "Colombia",
+        "anio_fundacion": 2020
+    }
+]

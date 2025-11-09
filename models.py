@@ -34,3 +34,16 @@ class Loan:
     def marcar_devuelto(self) -> None:
         self.devuelto = True
         self.fecha_devolucion_real = date.today()
+
+@dataclass
+class Editorial:
+    id: str
+    nombre: str
+    pais: str
+    anio_fundacion: int
+
+@dataclass
+class Genero:
+    id: str
+    nombre: str
+    descripcion: str

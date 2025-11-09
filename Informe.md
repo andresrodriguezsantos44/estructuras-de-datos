@@ -102,8 +102,95 @@ Se incluyen **3 pruebas** que cubren:
 - La **pila** brinda una forma simple de auditoría.
 - La separación por capas facilita futuras mejoras (persistencia, validaciones, reportes).
 
+# Etapa 2: Implementación de Árboles Binarios de Búsqueda
+
+## Introducción
+
+En esta segunda etapa del proyecto, se ha ampliado el sistema de gestión de biblioteca para incluir estructuras de datos no lineales, específicamente árboles binarios de búsqueda. Estas estructuras permiten realizar búsquedas más eficientes que las estructuras lineales implementadas en la primera etapa.
+
+## Nuevas Entidades
+
+Se han agregado dos nuevas entidades al sistema:
+
+1. **Editorial**: con atributos id, nombre, país y año de fundación.
+2. **Género**: con atributos id, nombre y descripción.
+
+Estas entidades se utilizan como base para implementar los árboles de búsqueda.
+
+## Estructuras de Datos Implementadas
+
+### Árbol Binario de Búsqueda (ABB)
+
+Se ha implementado un ABB genérico que permite:
+
+- Insertar datos con una clave y un valor.
+- Buscar un nodo por clave.
+- Recorrer el árbol en orden (inorden).
+
+La implementación es independiente de las clases específicas del dominio, lo que permite su reutilización en diferentes contextos.
+
+## Servicio de Búsqueda
+
+Se ha creado un servicio de búsqueda que utiliza dos árboles binarios:
+
+1. Uno para editoriales, ordenado por nombre.
+2. Otro para géneros, también ordenado por nombre.
+
+Este servicio permite:
+
+- Cargar listas de editoriales y géneros en los árboles.
+- Buscar una editorial por nombre.
+- Buscar un género por nombre.
+- Listar todas las editoriales y géneros en orden alfabético.
+
+## Persistencia de Datos
+
+Se ha implementado un sistema de persistencia que permite:
+
+- Guardar listas de objetos en archivos JSON.
+- Cargar datos desde JSON y reconstruir objetos según su clase.
+
+Esto facilita la carga inicial de datos y su posterior recuperación.
+
+## Análisis de Eficiencia
+
+### Comparación entre Búsquedas Lineales y Búsquedas con Árboles Binarios
+
+| Operación | Estructura Lineal | Árbol Binario de Búsqueda |
+|------------|-------------------|-----------------------------|
+| Búsqueda  | O(n)              | O(log n)                     |
+| Inserción  | O(1) o O(n)*       | O(log n)                     |
+| Recorrido  | O(n)              | O(n)                        |
+
+*Depende de la estructura lineal específica y si requiere mantener un orden.
+
+### Ventajas de los Árboles Binarios de Búsqueda
+
+1. **Eficiencia en búsquedas**: Las búsquedas se ejecutan en tiempo promedio O(log n), lo que representa una mejora significativa respecto a las estructuras lineales (O(n)) cuando el número de elementos es grande.
+
+2. **Ordenamiento implícito**: Los elementos se mantienen ordenados automáticamente, lo que facilita operaciones como listar elementos en orden alfabético.
+
+3. **Balance entre inserción y búsqueda**: Ofrece un buen equilibrio entre la eficiencia de inserción y búsqueda, ambas con complejidad O(log n).
+
+### Caso Práctico
+
+Para una biblioteca con 1,000 editoriales:
+
+- Búsqueda lineal: hasta 1,000 comparaciones en el peor caso.
+- Búsqueda en árbol binario: aproximadamente 10 comparaciones (log₂ 1,000 ≈ 10).
+
+Esto representa una mejora de eficiencia de aproximadamente 100 veces para el peor caso.
+
+## Conclusiones
+
+- La implementación de árboles binarios de búsqueda ha mejorado significativamente la eficiencia de las operaciones de búsqueda en el sistema.
+- La estructura modular del código permite una fácil extensión para incluir nuevas funcionalidades.
+- La persistencia con JSON proporciona una forma sencilla de almacenar y recuperar datos sin depender de bases de datos externas.
+- El sistema ahora combina estructuras lineales y no lineales, aprovechando las ventajas de cada una según el caso de uso.
+
 ## Referencias (APA)
 - Ayala San Martín, G. (2020). Algoritmos y programación: mejores prácticas. Fundación Universidad de las Américas Puebla (UDLAP). (Págs. 106-113).
 - Fritelli, V. Guzman, A. & Tymoschuk, J. (2020). Algoritmos y estructuras de datos (2a. ed.). Jorge Sarmiento Editor - Universitas. (Págs. 95- 125, 257-299).
 - Ruiz Rodríguez, R. (2009). Fundamentos de la programación orientada a objetos: una aplicación a las estructuras de datos en Java. El Cid Editor.
 - Zohonero Martínez, I. & Joyanes Aguilar, L. (2008). Estructuras de datos en Java. McGraw-Hill. España.
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press. (Págs. 286-307).

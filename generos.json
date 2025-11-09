@@ -1,0 +1,17 @@
+[
+    {
+        "id": "GEN001",
+        "nombre": "Ciencia Ficción",
+        "descripcion": "Género literario que sitúa la acción en un marco imaginario, diferente al mundo real, a menudo basado en especulaciones científicas."
+    },
+    {
+        "id": "GEN002",
+        "nombre": "Novela Histórica",
+        "descripcion": "Género narrativo que recrea un período histórico preferentemente lejano y en el que una acción ficticia se mezcla con acontecimientos históricos reales."
+    },
+    {
+        "id": "GEN003",
+        "nombre": "Poesía",
+        "descripcion": "Género literario que se caracteriza por la expresión de sentimientos y pensamientos mediante el uso del lenguaje rítmico y metafórico."
+    }
+]
