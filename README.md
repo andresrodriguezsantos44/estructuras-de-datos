@@ -33,7 +33,7 @@ python3 -m unittest tests/tests_arboles.py -v   # Pruebas de árboles binarios
 estructuras-de-datos/
 ├── app.py                  # Aplicación principal con menú CLI
 ├── Informe.md              # Análisis técnico y requerimientos
-├── DOCUMENTACION.md        # Decisiones de diseño y desafíos
+├── Documentacion.md        # Decisiones de diseño y desafíos
 ├── README.md               # Este archivo (guía de uso)
 ├── src/                    # Código fuente
 │   ├── estructuras/        # Implementaciones de estructuras de datos
@@ -64,13 +64,13 @@ estructuras-de-datos/
 2. **Gestión de Usuarios** - Registro y búsqueda de usuarios
 3. **Préstamos/Reservas** - Control de préstamos y devoluciones
 4. **Editoriales y Géneros** - Búsquedas avanzadas con árboles binarios
-9. **Ver última acción** - Historial de operaciones (pila)
-0. **Salir** - Finalizar programa
+5. **Ver última acción** - Historial de operaciones (pila)
+6. **Salir** - Finalizar programa
 
 ## Documentación Adicional
 
 - **Informe.md**: Análisis técnico, requerimientos y estructuras de datos utilizadas
-- **DOCUMENTACION.md**: Decisiones de diseño, desafíos enfrentados y soluciones implementadas
+- **Documentacion.md**: Decisiones de diseño, desafíos enfrentados y soluciones implementadas
 
 ## Autor
 
