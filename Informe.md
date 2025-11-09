@@ -73,11 +73,41 @@ Este documento presenta el análisis, diseño e implementación de un prototipo 
 
 ## Implementación (resumen)
 
-- `ds_linear.py`: implementa **ArrayList**, **Lista Enlazada Simple**, **Stack**, **Queue** (lineales).
-- `models.py`: dataclasses para **Book**, **User**, **Loan**.
-- `library_service.py`: reglas de negocio; ordena libros por ISBN, usa cola de reservas y pila de historial.
-- `app.py`: **menú CLI** con opciones de gestión, préstamos y reservas.
-- `tests_unittest.py`: **unittest** de registro/búsqueda de libro, flujo prestar/devolver y reservas automáticas.
+### Estructura del Proyecto
+
+El proyecto se ha organizado en una estructura modular de carpetas para mejorar la mantenibilidad y escalabilidad:
+
+```
+estructuras-de-datos/
+├── app.py                  # Aplicación principal con menú CLI
+├── src/                    # Código fuente
+│   ├── estructuras/         # Estructuras de datos
+│   │   ├── ds_linear.py     # Estructuras lineales
+│   │   └── arboles.py       # Árbol Binario de Búsqueda
+│   ├── modelos/            # Modelos de datos
+│   │   └── models.py        # Clases de entidades
+│   ├── servicios/          # Servicios de negocio
+│   │   ├── library_service.py # Servicio de biblioteca
+│   │   └── search_service.py # Servicio de búsqueda
+│   └── persistencia/       # Manejo de persistencia
+│       └── persistencia.py   # Funciones JSON
+├── tests/                 # Pruebas unitarias
+│   ├── tests_unittest.py    # Pruebas lineales
+│   └── tests_arboles.py     # Pruebas árboles
+└── data/                  # Archivos de datos
+    ├── editoriales.json     # Datos de editoriales
+    └── generos.json         # Datos de géneros
+```
+
+### Componentes Principales
+
+- `src/estructuras/ds_linear.py`: implementa **ArrayList**, **Lista Enlazada Simple**, **Stack**, **Queue** (lineales).
+- `src/modelos/models.py`: dataclasses para **Book**, **User**, **Loan**, **Editorial**, **Genero**.
+- `src/servicios/library_service.py`: reglas de negocio; ordena libros por ISBN, usa cola de reservas y pila de historial.
+- `src/servicios/search_service.py`: servicio de búsqueda con árboles binarios para editoriales y géneros.
+- `app.py`: **menú CLI** con opciones de gestión, préstamos, reservas y búsquedas.
+- `tests/tests_unittest.py`: **unittest** de registro/búsqueda de libro, flujo prestar/devolver y reservas automáticas.
+- `tests/tests_arboles.py`: **unittest** para verificar el funcionamiento de los árboles binarios de búsqueda.
 
 ## Menú del aplicativo (línea de comando)
 
@@ -193,4 +223,3 @@ Esto representa una mejora de eficiencia de aproximadamente 100 veces para el pe
 - Fritelli, V. Guzman, A. & Tymoschuk, J. (2020). Algoritmos y estructuras de datos (2a. ed.). Jorge Sarmiento Editor - Universitas. (Págs. 95- 125, 257-299).
 - Ruiz Rodríguez, R. (2009). Fundamentos de la programación orientada a objetos: una aplicación a las estructuras de datos en Java. El Cid Editor.
 - Zohonero Martínez, I. & Joyanes Aguilar, L. (2008). Estructuras de datos en Java. McGraw-Hill. España.
-- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press. (Págs. 286-307).

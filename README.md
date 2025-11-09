@@ -17,25 +17,54 @@ python3 -m unittest tests_unittest.py -v
 python3 -m unittest tests_arboles.py -v
 ```
 
-## Estructura
+## Estructura del Proyecto
+
+```
+estructuras-de-datos/
+├── app.py                  # Aplicación principal con menú CLI
+├── Informe.md              # Documentación del proyecto
+├── README.md               # Este archivo
+├── src/                    # Código fuente
+│   ├── __init__.py          # Inicialización del paquete
+│   ├── estructuras/         # Estructuras de datos
+│   │   ├── __init__.py      # Inicialización del paquete
+│   │   ├── ds_linear.py     # Estructuras lineales (ArrayList, LinkedList, Stack, Queue)
+│   │   └── arboles.py       # Árbol Binario de Búsqueda genérico
+│   ├── modelos/            # Modelos de datos
+│   │   ├── __init__.py      # Inicialización del paquete
+│   │   └── models.py        # Clases Book, User, Loan, Editorial, Genero
+│   ├── servicios/          # Servicios de negocio
+│   │   ├── __init__.py      # Inicialización del paquete
+│   │   ├── library_service.py # Servicio de biblioteca (estructuras lineales)
+│   │   └── search_service.py # Servicio de búsqueda (árboles)
+│   └── persistencia/       # Manejo de persistencia
+│       ├── __init__.py      # Inicialización del paquete
+│       └── persistencia.py   # Funciones para guardar/cargar datos JSON
+├── tests/                 # Pruebas unitarias
+│   ├── __init__.py          # Inicialización del paquete
+│   ├── tests_unittest.py    # Pruebas para estructuras lineales
+│   └── tests_arboles.py     # Pruebas para árboles
+└── data/                  # Archivos de datos
+    ├── editoriales.json     # Datos de editoriales
+    └── generos.json         # Datos de géneros
+```
 
 ### Etapa 1: Estructuras Lineales
 
-- `ds_linear.py`: estructuras lineales (ArrayList, SinglyLinkedList, Stack, Queue)
-- `models.py`: dataclasses Book, User, Loan
-- `library_service.py`: reglas de negocio
-- `app.py`: menú por línea de comando
-- `tests_unittest.py`: pruebas unitarias
-- `Informe.md`: reporte con requisitos, diseño, decisiones y referencias
+Implementación de estructuras de datos lineales para la gestión de biblioteca:
+
+- Arreglos dinámicos (ArrayList) para almacenar libros
+- Listas enlazadas (SinglyLinkedList) para usuarios
+- Pilas (Stack) para historial de operaciones
+- Colas (Queue) para reservas de libros
 
 ### Etapa 2: Árboles Binarios
 
-- `arboles.py`: implementación de Árbol Binario de Búsqueda genérico
-- `search_service.py`: servicio de búsqueda usando árboles para editoriales y géneros
-- `persistencia.py`: funciones para guardar y cargar datos en formato JSON
-- `tests_arboles.py`: pruebas unitarias para árboles
-- `editoriales.json`: datos de editoriales en formato JSON
-- `generos.json`: datos de géneros en formato JSON
+Implementación de estructuras no lineales para búsquedas eficientes:
+
+- Árbol Binario de Búsqueda genérico
+- Servicio de búsqueda para editoriales y géneros
+- Persistencia de datos en archivos JSON
 
 ## Menú de Búsquedas y Gestión
 

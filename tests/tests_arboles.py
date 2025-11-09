@@ -1,5 +1,11 @@
 import unittest
-from arboles import ArbolBinarioBusqueda
+import sys
+import os
+
+# Agregar el directorio raíz al path para poder importar los módulos
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.estructuras.arboles import ArbolBinarioBusqueda
 
 class TestArbolBinarioBusqueda(unittest.TestCase):
     def setUp(self):

@@ -1,7 +1,7 @@
 from typing import List, Optional, Dict, Any
-from models import Editorial, Genero
-from arboles import ArbolBinarioBusqueda
-from persistencia import guardar_a_json, cargar_desde_json
+from src.modelos.models import Editorial, Genero
+from src.estructuras.arboles import ArbolBinarioBusqueda
+from src.persistencia.persistencia import guardar_a_json, cargar_desde_json
 
 class SearchService:
     """
@@ -16,8 +16,8 @@ class SearchService:
         self.arbol_generos = ArbolBinarioBusqueda[str, Genero]()
         
         # Rutas de archivos JSON
-        self.ruta_editoriales = "editoriales.json"
-        self.ruta_generos = "generos.json"
+        self.ruta_editoriales = "data/editoriales.json"
+        self.ruta_generos = "data/generos.json"
     
     def cargar_editoriales(self, editoriales: List[Editorial]) -> None:
         """Carga una lista de editoriales en el árbol."""

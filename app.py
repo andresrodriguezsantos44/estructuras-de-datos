@@ -1,9 +1,9 @@
 
 from typing import Optional
-from models import Book, User, Editorial, Genero
-from library_service import LibraryService
-from search_service import SearchService
-from persistencia import cargar_desde_json
+from src.modelos.models import Book, User, Editorial, Genero
+from src.servicios.library_service import LibraryService
+from src.servicios.search_service import SearchService
+from src.persistencia.persistencia import cargar_desde_json
 
 def input_int(prompt: str) -> int:
     while True:
@@ -154,8 +154,8 @@ def ejecutar_busquedas():
     search_svc = SearchService()
     
     # Cargar datos desde archivos JSON
-    editoriales = cargar_desde_json("editoriales.json", Editorial)
-    generos = cargar_desde_json("generos.json", Genero)
+    editoriales = cargar_desde_json("data/editoriales.json", Editorial)
+    generos = cargar_desde_json("data/generos.json", Genero)
     
     # Cargar datos en los árboles
     search_svc.cargar_editoriales(editoriales)

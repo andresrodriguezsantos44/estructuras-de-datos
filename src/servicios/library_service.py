@@ -2,8 +2,8 @@
 from __future__ import annotations
 from typing import Dict, Optional, List
 from datetime import date, timedelta
-from models import Book, User, Loan
-from ds_linear import ArrayList, SinglyLinkedList, Stack, Queue
+from src.modelos.models import Book, User, Loan
+from src.estructuras.ds_linear import ArrayList, SinglyLinkedList, Stack, Queue
 
 class LibraryService:
     """

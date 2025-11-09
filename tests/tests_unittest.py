@@ -1,7 +1,13 @@
 
 import unittest
-from models import Book, User
-from library_service import LibraryService
+import sys
+import os
+
+# Agregar el directorio raíz al path para poder importar los módulos
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.modelos.models import Book, User
+from src.servicios.library_service import LibraryService
 
 class TestBibliotecaLineal(unittest.TestCase):
     def setUp(self):
